@@ -11,5 +11,6 @@ class CarType extends Model
     use HasFactory, Uuids;
     protected $fillable = [
         'title'
+        
     ];
 }
