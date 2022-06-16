@@ -14,7 +14,9 @@ class CreateCarTypesTable extends Migration
     public function up()
     {
         Schema::create('car_types', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
+            $table->string('title');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
