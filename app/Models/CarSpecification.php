@@ -7,10 +7,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class CarType extends Model
+class CarSpecification extends Model
 {
-    use HasFactory, Uuids, SoftDeletes;
+    use HasFactory,Uuids, SoftDeletes;
     protected $fillable = [
-        'title'
+        'title',
+        'cost',
+        'is_applied_per_km',
+        'minimum_travel_distance',
+        'is_minimum_travel_distance_applied'
     ];
 }
