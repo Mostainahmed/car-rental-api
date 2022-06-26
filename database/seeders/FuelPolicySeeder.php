@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\Brand;
 use App\Models\FuelPolicy;
 use Illuminate\Database\Seeder;
 
