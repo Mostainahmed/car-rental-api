@@ -13,6 +13,8 @@ class FuelPolicy extends Model
     protected $fillable = [
         'title',
         'distance',
+        'distance_unit',
+        'cost_unit',
         'cost'
     ];
 }

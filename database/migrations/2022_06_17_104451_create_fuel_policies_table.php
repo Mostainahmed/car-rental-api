@@ -17,7 +17,9 @@ class CreateFuelPoliciesTable extends Migration
             $table->uuid('id')->primary();
             $table->string( 'title');
             $table->decimal( 'distance',8,2)->nullable();
+            $table->enum('distance_unit', ['kilometer', 'mile'])->default('kilometer');
             $table->decimal('cost',8,2)->default(0.00);
+            $table->enum('cost_unit', ['euro', 'dollar']);
             $table->softDeletes();
             $table->timestamps();
         });
