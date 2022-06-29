@@ -14,4 +14,23 @@ class Supplier extends Model
         'title',
         'description'
     ];
+
+    public function getSuppliers($request)
+    {
+        return $this->ofSearch($request)
+            ->orderBy('created_at', config('settings.pagination.order_by'))
+            ->paginate(config('settings.pagination.per_page'));
+    }
+
+    public function scopeOfSearch($query, $request){
+        $search = $request->query('search');
+
+        if (!empty($search)) {
+            $query->where(function ($q) use ($search) {
+                $q->where('title', 'LIKE', '%' . $search . '%')
+                    ->orWhere('description', 'LIKE', '%' . $search . '%');
+            });
+        }
+        return $query;
+    }
 }
