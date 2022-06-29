@@ -19,7 +19,8 @@ class DatabaseSeeder extends Seeder
             BrandSeeder::class,
             RentalTypeSeeder::class,
             FuelPolicySeeder::class,
-            SupplierSeeder::class
+            SupplierSeeder::class,
+            InsurancePolicySeeder::class
         ]);
     }
 }

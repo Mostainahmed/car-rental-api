@@ -7,18 +7,17 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class CarSpecification extends Model
+class InsurancePolicy extends Model
 {
-    use HasFactory,Uuids, SoftDeletes;
+    use HasFactory, Uuids, SoftDeletes;
     protected $fillable = [
-        'title',
         'cost',
-        'is_applied_per_km',
-        'minimum_travel_distance',
-        'is_minimum_travel_distance_applied'
+        'description',
+        'title',
+        'cost_unit'
     ];
 
-    public function getCarSpecifications($request)
+    public function getInsurancePolicies($request)
     {
         return $this->ofSearch($request)
             ->orderBy('created_at', config('settings.pagination.order_by'))
@@ -30,9 +29,10 @@ class CarSpecification extends Model
 
         if (!empty($search)) {
             $query->where(function ($q) use ($search) {
-                $q->where('title', 'LIKE', '%' . $search . '%')
-                    ->orWhere('cost', 'LIKE', '%' . $search . '%')
-                    ->orWhere('minimum_travel_distance', 'LIKE', '%' . $search . '%');
+                $q->where('cost', 'LIKE', '%' . $search . '%')
+                    ->orWhere('cost_unit', 'LIKE', '%' . $search . '%')
+                    ->orWhere('description', 'LIKE', '%' . $search . '%')
+                    ->orWhere('title', 'LIKE', '%' . $search . '%');
             });
         }
         return $query;

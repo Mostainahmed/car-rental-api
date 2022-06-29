@@ -2,8 +2,10 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BrandController;
+use App\Http\Controllers\CarSpecificationController;
 use App\Http\Controllers\CarTypeController;
 use App\Http\Controllers\FuelPolicyController;
+use App\Http\Controllers\RentalTypeController;
 use App\Http\Controllers\SupplierController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -53,5 +55,17 @@ Route::group(['prefix' => 'v1/'], function () {
         Route::post('/', [FuelPolicyController::class, 'store'])->name('store_car_fuel_policies');
         Route::put('/{uuid}', [FuelPolicyController::class, 'update'])->name('update_car_fuel_policies');
         Route::delete('/{uuid}', [FuelPolicyController::class, 'destroy'])->name('delete_car_fuel_policies');
+    });
+
+    Route::group(['prefix' => 'car-specs/', 'middleware' => 'auth:sanctum'], function () {
+        Route::get('/', [CarSpecificationController::class, 'index'])->name('list_of_car_specs');
+        Route::get('/{uuid}', [CarSpecificationController::class, 'show'])->name('detail_of_car_specs');
+        Route::delete('/{uuid}', [CarSpecificationController::class, 'destroy'])->name('delete_car_specs');
+    });
+
+    Route::group(['prefix' => 'rental-types/', 'middleware' => 'auth:sanctum'], function () {
+        Route::get('/', [RentalTypeController::class, 'index'])->name('list_of_rental_types');
+        Route::get('/{uuid}', [RentalTypeController::class, 'show'])->name('detail_of_rental_types');
+        Route::delete('/{uuid}', [RentalTypeController::class, 'destroy'])->name('delete_rental_types');
     });
 });
