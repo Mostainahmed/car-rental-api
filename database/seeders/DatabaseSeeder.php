@@ -18,7 +18,8 @@ class DatabaseSeeder extends Seeder
             CarSpecificationSeeder::class,
             BrandSeeder::class,
             RentalTypeSeeder::class,
-            FuelPolicySeeder::class
+            FuelPolicySeeder::class,
+            SupplierSeeder::class
         ]);
     }
 }
