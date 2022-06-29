@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CarTypeController;
+use App\Http\Controllers\FuelPolicyController;
 use App\Http\Controllers\SupplierController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -45,5 +46,12 @@ Route::group(['prefix' => 'v1/'], function () {
         Route::post('/', [SupplierController::class, 'store'])->name('store_car_suppliers');
         Route::put('/{uuid}', [SupplierController::class, 'update'])->name('update_car_suppliers');
         Route::delete('/{uuid}', [SupplierController::class, 'destroy'])->name('delete_car_suppliers');
+    });
+    Route::group(['prefix' => 'fuel-policies/', 'middleware' => 'auth:sanctum'], function () {
+        Route::get('/', [FuelPolicyController::class, 'index'])->name('list_of_fuel_policies');
+        Route::get('/{uuid}', [FuelPolicyController::class, 'show'])->name('detail_of_fuel_policies');
+        Route::post('/', [FuelPolicyController::class, 'store'])->name('store_car_fuel_policies');
+        Route::put('/{uuid}', [FuelPolicyController::class, 'update'])->name('update_car_fuel_policies');
+        Route::delete('/{uuid}', [FuelPolicyController::class, 'destroy'])->name('delete_car_fuel_policies');
     });
 });
