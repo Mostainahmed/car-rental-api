@@ -14,6 +14,10 @@ class CarType extends Model
         'title'
     ];
 
+    public function cars(){
+        return $this->hasMany(Car::class);
+    }
+
     public function getCarTypes($request)
     {
         return $this->ofSearch($request)

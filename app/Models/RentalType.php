@@ -16,6 +16,10 @@ class RentalType extends Model
         'cost_unit'
     ];
 
+    public function bookings(){
+        return $this->hasMany(Booking::class);
+    }
+
     public function getRentalTypes($request)
     {
         return $this->ofSearch($request)

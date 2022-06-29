@@ -16,6 +16,10 @@ class Brand extends Model
         'url'
     ];
 
+    public function cars(){
+        return $this->hasMany(Car::class);
+    }
+
     public function getBrands($request)
     {
         return $this->ofSearch($request)

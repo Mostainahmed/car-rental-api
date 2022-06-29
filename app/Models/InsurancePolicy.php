@@ -17,6 +17,10 @@ class InsurancePolicy extends Model
         'cost_unit'
     ];
 
+    public function bookings(){
+        return $this->hasMany(Booking::class);
+    }
+
     public function getInsurancePolicies($request)
     {
         return $this->ofSearch($request)

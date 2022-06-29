@@ -1,10 +1,13 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BookingController;
 use App\Http\Controllers\BrandController;
+use App\Http\Controllers\CarController;
 use App\Http\Controllers\CarSpecificationController;
 use App\Http\Controllers\CarTypeController;
 use App\Http\Controllers\FuelPolicyController;
+use App\Http\Controllers\InsurancePolicyController;
 use App\Http\Controllers\RentalTypeController;
 use App\Http\Controllers\SupplierController;
 use Illuminate\Http\Request;
@@ -67,5 +70,27 @@ Route::group(['prefix' => 'v1/'], function () {
         Route::get('/', [RentalTypeController::class, 'index'])->name('list_of_rental_types');
         Route::get('/{uuid}', [RentalTypeController::class, 'show'])->name('detail_of_rental_types');
         Route::delete('/{uuid}', [RentalTypeController::class, 'destroy'])->name('delete_rental_types');
+    });
+
+    Route::group(['prefix' => 'insurance-policies/', 'middleware' => 'auth:sanctum'], function () {
+        Route::get('/', [InsurancePolicyController::class, 'index'])->name('list_of_insurance_policies');
+        Route::get('/{uuid}', [InsurancePolicyController::class, 'show'])->name('detail_of_insurance_policies');
+        Route::delete('/{uuid}', [InsurancePolicyController::class, 'destroy'])->name('delete_insurance_policies');
+    });
+
+    Route::group(['prefix' => 'cars/'], function () {
+        Route::get('/', [CarController::class, 'index'])->name('list_of_cars');
+        Route::get('/{uuid}', [CarController::class, 'show'])->name('detail_of_cars');
+        Route::post('/', [CarController::class, 'store'])->name('store_car');
+        Route::put('/{uuid}', [CarController::class, 'update'])->name('update_car');
+        Route::delete('/{uuid}', [CarController::class, 'destroy'])->name('delete_car');
+    });
+
+    Route::group(['prefix' => 'bookings/'], function () {
+        Route::get('/', [BookingController::class, 'index'])->name('list_of_bookings');
+        Route::get('/{uuid}', [BookingController::class, 'show'])->name('detail_of_bookings');
+        Route::post('/', [BookingController::class, 'store'])->name('store_bookings');
+        Route::put('/{uuid}', [BookingController::class, 'update'])->name('update_bookings');
+        Route::delete('/{uuid}', [BookingController::class, 'destroy'])->name('delete_bookings');
     });
 });

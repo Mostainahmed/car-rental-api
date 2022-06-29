@@ -15,6 +15,10 @@ class Supplier extends Model
         'description'
     ];
 
+    public function cars(){
+        return $this->hasMany(Car::class);
+    }
+
     public function getSuppliers($request)
     {
         return $this->ofSearch($request)

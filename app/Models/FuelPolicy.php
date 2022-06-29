@@ -18,6 +18,10 @@ class FuelPolicy extends Model
         'cost'
     ];
 
+    public function bookings(){
+        return $this->hasMany(Booking::class);
+    }
+
     public function getFuelPolicies($request)
     {
         return $this->ofSearch($request)

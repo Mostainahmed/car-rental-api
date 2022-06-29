@@ -18,6 +18,10 @@ class CarSpecification extends Model
         'is_minimum_travel_distance_applied'
     ];
 
+    public function bookings(){
+        return $this->hasMany(Booking::class);
+    }
+
     public function getCarSpecifications($request)
     {
         return $this->ofSearch($request)
