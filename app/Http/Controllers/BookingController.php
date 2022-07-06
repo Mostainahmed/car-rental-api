@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\ApiResponseHelper;
+use App\Http\Requests\StatusRequest;
 use App\Http\Resources\BookingResource;
 use App\Http\Resources\CarResource;
 use App\Http\Resources\FuelPolicyResource;
@@ -17,6 +18,7 @@ use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
+use Throwable;
 
 class BookingController extends BaseController
 {
@@ -141,6 +143,23 @@ class BookingController extends BaseController
     {
         $booking = Booking::findOrFail($uuid);
         return $this->softDeleteModelData($booking, $apiResponseHelper);
+    }
+
+    public function changeStatus(StatusRequest $request, $id): JsonResponse
+    {
+        DB::beginTransaction();
+        try {
+            $booking = Booking::findOrFail($id);
+            $booking->travel_status = $request->travel_status;
+            $booking->save();
+            DB::commit();
+
+            $result['message'] = config('settings.message.status_changed');
+            return response()->json($result, Response::HTTP_OK);
+        } catch (Throwable $e) {
+            DB::rollback();
+            throw $e;
+        }
     }
 
     private function setLatAndLngInRequest(Request $request, LocationService $locationService)
