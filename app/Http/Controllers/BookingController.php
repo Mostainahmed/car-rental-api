@@ -151,6 +151,8 @@ class BookingController extends BaseController
         try {
             $booking = Booking::findOrFail($id);
             $booking->travel_status = $request->travel_status;
+            $car = $this->carStatusChange($booking, $request->travel_status);
+            $car->update();
             $booking->save();
             DB::commit();
 
@@ -176,5 +178,20 @@ class BookingController extends BaseController
         }
 
         return $request;
+    }
+
+    private function carStatusChange($booking, $travel_status)
+    {
+        //travel_status = ONGOING,BOOKED,FINISHED,PARKED
+        //"car_status" => "INACTIVE,BUSY,BOOKED",
+        $car = $booking->car;
+        if ($travel_status == "BOOKED" || $travel_status == "PARKED") {
+            $car->car_status = "BOOKED";
+        } else if($travel_status == "ONGOING"){
+            $car->car_status = "BUSY";
+        } else {
+            $car->car_status = "INACTIVE";
+        }
+        return $car;
     }
 }

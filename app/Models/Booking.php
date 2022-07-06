@@ -32,6 +32,8 @@ class Booking extends Model
     ];
 
 
+
+
     public function getBookings($request)
     {
         return $this->ofSearch($request)
