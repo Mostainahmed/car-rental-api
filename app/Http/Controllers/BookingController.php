@@ -186,11 +186,11 @@ class BookingController extends BaseController
         //"car_status" => "INACTIVE,BUSY,BOOKED",
         $car = $booking->car;
         if ($travel_status == "BOOKED" || $travel_status == "PARKED") {
-            $car->car_status = "BOOKED";
+            $car->status = "BOOKED";
         } else if($travel_status == "ONGOING"){
-            $car->car_status = "BUSY";
+            $car->status = "BUSY";
         } else {
-            $car->car_status = "INACTIVE";
+            $car->status = "INACTIVE";
         }
         return $car;
     }
